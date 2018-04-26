@@ -1,4 +1,7 @@
-//git test
+// Andrii Voronkin
+//ESP-12
+//tcp client
+//git test 2
 #include <ESP8266WiFi.h>
 int result = 10;
 //const char host [] = "127.1.1.1";
