@@ -33,10 +33,27 @@ int Period = 0;
 int FlagPeriodPlus = 0;
 int FlagPeriodMinus = 0;
 int OldPeriod= 0;
+// переменные для таймаута
+int LeftTimeout = 0;
+int RightTimeout = 0;
+int FlagTimeoutLeftPlus = 0;
+int FlagTimeoutLeftMinus = 0;
+int FlagTimeoutRightPlus = 0;
+int FlagTimeoutRightMinus = 0;
+//переменные для партий
+int LeftPart1 = 0;
+int RightPart1 = 0;
+int FlagPart1LeftPlus = 0;
+int FlagPart1LeftMinus = 0;
+int FlagPart1RightPlus = 0;
+int FlagPart1RightMinus = 0;
+
+
 
 
 int Menu_1_counter = 0;
-
+int Menu_2_counter = 0;
+int Menu_3_counter = 0;
 void setup()
 {
   Serial.begin(9600); // стартуем сериал ESP

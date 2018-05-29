@@ -116,15 +116,71 @@ void Menu_1 ()
  
   void Menu_2 ()
  {
-  
+   if (key_buff[4] == 0&&FlagTimeoutLeftPlus ==0)
+    {
+    lcd.clear();
+    LeftTimeout++;
+    Menu_2_counter++;
+    FlagTimeoutLeftPlus = 1;  //это нужно для того что бы с каждым нажатием кнопки происходило только одно действие плюс защита от "дребезга"  100%
+    }    
    
+   if (key_buff[4] == 1&&FlagTimeoutLeftPlus ==1)
+  {
+    FlagTimeoutLeftPlus = 0;
+  }
+  // счет левый-
+
+
+  if (key_buff[5] == 0&&FlagTimeoutLeftMinus == 0)
+  {
+    lcd.clear();
+    LeftTimeout--;
+    Menu_2_counter++;
+    FlagTimeoutLeftMinus = 1 ;
+  }
+
+
+  if (key_buff[5] == 1&&FlagTimeoutLeftMinus ==1)
+  {
+    FlagTimeoutLeftMinus = 0;
+  }
    
+  //**********************************************************
+ if (key_buff[6] == 0&&FlagTimeoutRightPlus ==0)
+    {
+    lcd.clear();
+    RightTimeout++;
+    Menu_2_counter++;
+    FlagTimeoutRightPlus = 1;  //это нужно для того что бы с каждым нажатием кнопки происходило только одно действие плюс защита от "дребезга"  100%
+    }    
    
-   
+   if (key_buff[6] == 1&&FlagTimeoutRightPlus ==1)
+  {
+    FlagTimeoutRightPlus = 0;
+  }
+  // счет левый-
+
+
+  if (key_buff[7] == 0&&FlagTimeoutRightMinus == 0)
+  {
+    lcd.clear();
+    RightTimeout--;
+    Menu_2_counter++;
+    FlagTimeoutRightMinus = 1 ;
+  }
+
+
+  if (key_buff[7] == 1&&FlagTimeoutRightMinus ==1)
+  {
+    FlagTimeoutRightMinus = 0;
+  } 
    
   lcd.setCursor(1, 0);
-  lcd.print ("0-TA\246MA\251T-0");
- 
+  lcd.print (LeftTimeout);
+  lcd.setCursor(2, 0);
+  lcd.print ("-TA\246MA\251T-");
+  lcd.setCursor(12, 0);
+  lcd.print (RightTimeout);
   lcd.setCursor(1, 1);
   lcd.print ("X");
   lcd.setCursor(2, 1);
@@ -148,32 +204,82 @@ void Menu_1 ()
   void Menu_3 ()
  {
   
-  lcd.setCursor(1, 0);
-  lcd.print ("0");
+   if (key_buff[4] == 0&&FlagPart1LeftPlus ==0)
+    {
+    lcd.clear();
+    LeftPart1++;
+    Menu_3_counter++;
+    FlagPart1LeftPlus = 1;  //это нужно для того что бы с каждым нажатием кнопки происходило только одно действие плюс защита от "дребезга"  100%
+    }    
+   
+   if (key_buff[4] == 1&&FlagPart1LeftPlus ==1)
+  {
+    FlagPart1LeftPlus = 0;
+  }
+  // счет левый-
+
+
+  if (key_buff[5] == 0&&FlagPart1LeftMinus == 0)
+  {
+    lcd.clear();
+    LeftPart1--;
+    Menu_3_counter++;
+    FlagPart1LeftMinus = 1 ;
+  }
+
+
+  if (key_buff[5] == 1&&FlagPart1LeftMinus ==1)
+  {
+    FlagPart1LeftMinus = 0;
+  }
+   
+  //**********************************************************
+ if (key_buff[6] == 0&&FlagPart1RightPlus ==0)
+    {
+    lcd.clear();
+    RightPart1++;
+    Menu_3_counter++;
+    FlagPart1RightPlus = 1;  //это нужно для того что бы с каждым нажатием кнопки происходило только одно действие плюс защита от "дребезга"  100%
+    }    
+   
+   if (key_buff[6] == 1&&FlagPart1RightPlus ==1)
+  {
+    FlagPart1RightPlus = 0;
+  }
+  // счет левый-
+
+
+  if (key_buff[7] == 0&&FlagPart1RightMinus == 0)
+  {
+    lcd.clear();
+    RightPart1--;
+    Menu_3_counter++;
+    FlagPart1RightMinus = 1 ;
+  }
+
+
+  if (key_buff[7] == 1&&FlagPart1RightMinus ==1)
+  {
+    FlagPart1RightMinus = 0;
+  }    
+   
+   
+   
+   
+   
+   
+
   lcd.setCursor(2, 0);
-  lcd.print ("0");
+  lcd.print (LeftPart1);
   lcd.setCursor(3, 0);
-  lcd.print ("-\250APT\245\261");
-//  lcd.setCursor(4, 0);
-//  lcd.write("\250"); //П
-//  lcd.setCursor(5, 0);
-//  lcd.print ("A");
-//  lcd.setCursor(6, 0);
-//  lcd.print ("P");
-//  lcd.setCursor(7, 0);
-//  lcd.print ("T");
-//  lcd.setCursor(8, 0);
-//  lcd.print ("\245");
-  lcd.setCursor(9, 0);
-  lcd.print ("\261"); //261 - Я
+  lcd.print ("-\250APT\245\261"); //250 П \245 И \261 Я
+
+
   lcd.setCursor(10, 0);
-  lcd.print ("1");
-  lcd.setCursor(11, 0);
-  lcd.print ("-");
+  lcd.print ("1-");
   lcd.setCursor(12, 0);
-  lcd.print ("0");
-  lcd.setCursor(13, 0);
-  lcd.print ("0");
+  lcd.print (RightPart1);
+
   lcd.setCursor(1, 1);
   lcd.print ("X");
   lcd.setCursor(2, 1);
