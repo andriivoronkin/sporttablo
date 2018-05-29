@@ -57,6 +57,7 @@ void Menu_1 ()
   //счет левый+
     if (key_buff[4] == 0&&FlagPeriodPlus ==0)
     {
+    delay(10);
     lcd.clear();
     Period++;
     Menu_1_counter++;
@@ -72,6 +73,7 @@ void Menu_1 ()
 
   if (key_buff[5] == 0&&FlagPeriodMinus == 0)
   {
+    delay(10);
     lcd.clear();
     Period--;
     Menu_1_counter++;
@@ -118,6 +120,7 @@ void Menu_1 ()
  {
    if (key_buff[4] == 0&&FlagTimeoutLeftPlus ==0)
     {
+    delay(10);
     lcd.clear();
     LeftTimeout++;
     Menu_2_counter++;
@@ -133,6 +136,7 @@ void Menu_1 ()
 
   if (key_buff[5] == 0&&FlagTimeoutLeftMinus == 0)
   {
+    delay(10);
     lcd.clear();
     LeftTimeout--;
     Menu_2_counter++;
@@ -146,23 +150,25 @@ void Menu_1 ()
   }
    
   //**********************************************************
- if (key_buff[6] == 0&&FlagTimeoutRightPlus ==0)
+ if (key_buff[1] == 0&&FlagTimeoutRightPlus ==0)
     {
+    delay(10);
     lcd.clear();
     RightTimeout++;
     Menu_2_counter++;
     FlagTimeoutRightPlus = 1;  //это нужно для того что бы с каждым нажатием кнопки происходило только одно действие плюс защита от "дребезга"  100%
     }    
    
-   if (key_buff[6] == 1&&FlagTimeoutRightPlus ==1)
+   if (key_buff[1] == 1&&FlagTimeoutRightPlus ==1)
   {
     FlagTimeoutRightPlus = 0;
   }
   // счет левый-
 
 
-  if (key_buff[7] == 0&&FlagTimeoutRightMinus == 0)
+  if (key_buff[2] == 0&&FlagTimeoutRightMinus == 0)
   {
+    delay(10);
     lcd.clear();
     RightTimeout--;
     Menu_2_counter++;
@@ -170,7 +176,7 @@ void Menu_1 ()
   }
 
 
-  if (key_buff[7] == 1&&FlagTimeoutRightMinus ==1)
+  if (key_buff[2] == 1&&FlagTimeoutRightMinus ==1)
   {
     FlagTimeoutRightMinus = 0;
   } 
@@ -179,7 +185,7 @@ void Menu_1 ()
   lcd.print (LeftTimeout);
   lcd.setCursor(2, 0);
   lcd.print ("-TA\246MA\251T-");
-  lcd.setCursor(12, 0);
+  lcd.setCursor(11, 0);
   lcd.print (RightTimeout);
   lcd.setCursor(1, 1);
   lcd.print ("X");

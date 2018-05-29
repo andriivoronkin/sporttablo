@@ -2,6 +2,7 @@ void Menu ()
 { 
   if (KeyMenuBuf[4] == 0&&FlagMenu ==1)
   {
+    delay(10);
     MenuCounter++;
     FlagMenu = 0;
     lcd.clear();
@@ -54,6 +55,15 @@ void Menu ()
 
   case 3:
   delay(50);
+  
+  if (Menu_2_counter >0)
+    {
+      MenuCounter = 0;
+      lcd.clear();
+      Menu_2_counter = 0;
+      break;
+    }
+    
     Menu_3();
     break;
 
