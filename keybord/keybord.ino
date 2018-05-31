@@ -47,13 +47,35 @@ int FlagPart1LeftPlus = 0;
 int FlagPart1LeftMinus = 0;
 int FlagPart1RightPlus = 0;
 int FlagPart1RightMinus = 0;
-
-
+//*****//
+int LeftPart2 = 0;
+int RightPart2 = 0;
+int FlagPart2LeftPlus = 0;
+int FlagPart2LeftMinus = 0;
+int FlagPart2RightPlus = 0;
+int FlagPart2RightMinus = 0;
+//*****//
+int LeftPart3 = 0;
+int RightPart3 = 0;
+int FlagPart3LeftPlus = 0;
+int FlagPart3LeftMinus = 0;
+int FlagPart3RightPlus = 0;
+int FlagPart3RightMinus = 0;
+//*****//
+int LeftPart4 = 0;
+int RightPart4 = 0;
+int FlagPart4LeftPlus = 0;
+int FlagPart4LeftMinus = 0;
+int FlagPart4RightPlus = 0;
+int FlagPart4RightMinus = 0;
 
 
 int Menu_1_counter = 0;
 int Menu_2_counter = 0;
 int Menu_3_counter = 0;
+int Menu_4_counter = 0;
+int Menu_5_counter = 0;
+int Menu_6_counter = 0;
 void setup()
 {
   Serial.begin(9600); // стартуем сериал ESP
@@ -116,6 +138,7 @@ static uint8_t val = 1; // эта переменная нужнатолько д
 //  key1();
 //  key2();
   Menu ();
+
 
 }
 
