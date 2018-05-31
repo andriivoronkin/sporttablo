@@ -22,11 +22,18 @@ int MenuCounter = 0;
 int FlagMenu = 0;
 //int score1 = 0;
 //int oldscore = -1;
+
 // команда для ESP
-String buf;
+// установки для передачи по TCP
 String cip = "AT+CIPSEND=0,"; // стандартная команда из АТ прошивки для передачи сообщения
 String command; // эта переменная содержит в себе переменную СIP плюс размер структуры size
 int sizee; // эта переменная мсодержит в себе размер структуры
+String data;
+
+long previousMillis = 0;
+const long interval = 2000;
+long currentMillis = 0;
+
 
 // переменные для счета
 int Period = 0;
@@ -76,6 +83,7 @@ int Menu_3_counter = 0;
 int Menu_4_counter = 0;
 int Menu_5_counter = 0;
 int Menu_6_counter = 0;
+
 void setup()
 {
   Serial.begin(9600); // стартуем сериал ESP
@@ -88,18 +96,21 @@ void setup()
   digitalWrite(slaveSelectPin, HIGH);//    digitalWrite(slaveSelectPin, LOW); // выбор ведомого - нашего регистра, необходимо перевести в 1
 //      SPI.transfer(0); // очищаем содержимое регистра
   //  MainMenu ();
-
-//  delay (500); //настройка TCP сервера
-//  Serial.println("AT+CIPMODE=0");
-//  delay (1000);
-//  Serial.println("AT+CIPMUX=1");
-//  delay (1000);
-//  Serial.println("AT+CIPSERVER=1,8888");
-//  delay (1000);
+  Serial.println("ATE1");
+  delay (500); //настройка TCP сервера
+  Serial.println("AT+CIPMODE=0");
+  delay (1000);
+  Serial.println("AT+CIPMUX=1");
+  delay (1000);
+  Serial.println("AT+CIPSERVER=1,8888");
+  delay (1000);
 }
 
 void loop() {
-
+//  sizee = sizeof (tabl);
+   
+  
+  
 static uint8_t val = 1; // эта переменная нужнатолько для передачи по SPI
   uint8_t keyb1 = 0; // здесь хранится байт от левой клавиатуры
   uint8_t keyb2 = 0; // здесь хранится байт от правой клавиатуры
@@ -138,8 +149,27 @@ static uint8_t val = 1; // эта переменная нужнатолько д
 //  key1();
 //  key2();
   Menu ();
+  
+currentMillis = millis();
 
-
+  if (currentMillis - previousMillis >= interval) 
+  {
+    previousMillis = currentMillis;
+  data = "";  
+  data = data + Period;
+  data = data + " ";
+  data = data + LeftTimeout;
+  data = data + " ";
+  data = data + RightTimeout;
+  data = data + "\r\n";
+  sizee = sizeof (data);
+  delay(10);
+  command = cip + sizee;
+  
+  Serial.println(command);
+  delay (100);
+  Serial.print(data);
+  }
 }
 
 
