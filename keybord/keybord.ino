@@ -29,6 +29,8 @@ String cip = "AT+CIPSEND=0,"; // стандартная команда из АТ
 String command; // эта переменная содержит в себе переменную СIP плюс размер структуры size
 int sizee; // эта переменная мсодержит в себе размер структуры
 String data;
+char buffer[8];
+char probel = ' ';
 
 long previousMillis = 0;
 const long interval = 2000;
@@ -39,7 +41,6 @@ long currentMillis = 0;
 int Period = 0;
 int FlagPeriodPlus = 0;
 int FlagPeriodMinus = 0;
-int OldPeriod= 0;
 // переменные для таймаута
 int LeftTimeout = 0;
 int RightTimeout = 0;
@@ -75,6 +76,11 @@ int FlagPart4LeftPlus = 0;
 int FlagPart4LeftMinus = 0;
 int FlagPart4RightPlus = 0;
 int FlagPart4RightMinus = 0;
+//таймер
+int Minute = 0;
+int FlagMinutePlus = 0;
+int FlagMinuteMinus = 0;
+int Sec = 0;
 
 
 int Menu_1_counter = 0;
@@ -83,6 +89,7 @@ int Menu_3_counter = 0;
 int Menu_4_counter = 0;
 int Menu_5_counter = 0;
 int Menu_6_counter = 0;
+int Menu_7_counter = 0;
 
 void setup()
 {
@@ -161,14 +168,20 @@ currentMillis = millis();
   data = data + LeftTimeout;
   data = data + " ";
   data = data + RightTimeout;
+  data = data + " ";
+  data = data + Minute;
+  data = data + "$";
   data = data + "\r\n";
   sizee = sizeof (data);
+
+ 
   delay(10);
   command = cip + sizee;
   
   Serial.println(command);
   delay (100);
   Serial.print(data);
+
   }
 }
 

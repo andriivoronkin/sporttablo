@@ -581,27 +581,59 @@ if (key_buff[4] == 0 && FlagPart4LeftPlus == 0)
 void Menu_7 ()
 {
 
-  lcd.setCursor(1, 0);
-  lcd.print ("T");
-  lcd.setCursor(2, 0);
-  lcd.print ("A");
-  lcd.setCursor(3, 0);
-  lcd.print ("\246");
-  lcd.setCursor(4, 0);
-  lcd.write("M");
-  lcd.setCursor(5, 0);
-  lcd.print ("E");
-  lcd.setCursor(6, 0);
-  lcd.print ("P");
-  lcd.setCursor(7, 0);
-  lcd.print ("-");
-  lcd.setCursor(8, 0);
-  lcd.print ("0");
-  lcd.setCursor(9, 0);
-  lcd.print ("0");
-  lcd.setCursor(10, 0);
-  lcd.print ("0");
+   if (key_buff[4] == 0 && FlagMinutePlus == 0)
+  {
+    delay(10);
+    lcd.clear();
+    Minute++;
+    Menu_7_counter++;
+    FlagMinutePlus = 1;  //это нужно для того что бы с каждым нажатием кнопки происходило только одно действие плюс защита от "дребезга"  100%
+  }
 
+  if (key_buff[4] == 1 && FlagMinutePlus == 1)
+  {
+    FlagMinutePlus = 0;
+  }
+  // счет левый-
+
+  if (key_buff[5] == 0 && FlagMinuteMinus == 0)
+  {
+    delay(10);
+    lcd.clear();
+    Minute--;
+    Menu_7_counter++;
+    FlagMinuteMinus = 1 ;
+  }
+
+  if (key_buff[5] == 1 && FlagMinuteMinus == 1)
+  {
+    FlagMinuteMinus = 0;
+  }
+  
+  
+  
+  lcd.setCursor(1, 0);
+  lcd.print ("TA\246MEP-");
+  
+  if (Minute < 10)
+  {
+  lcd.setCursor(9, 0);
+  lcd.print (Minute);
+  }else  {
+  lcd.setCursor(8, 0);
+  lcd.print (Minute);
+  }
+  
+  
+  lcd.setCursor(10, 0);
+  lcd.print (":");
+  
+  lcd.setCursor(11, 0);
+  lcd.print (Sec);
+  lcd.setCursor(12, 0);
+  lcd.print ("0");
+  
+  
   lcd.setCursor(1, 1);
   lcd.print ("Y");
   lcd.setCursor(2, 1);

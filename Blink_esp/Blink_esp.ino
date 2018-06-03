@@ -1,53 +1,88 @@
-// Andrii Voronkin
-//ESP-12
-//tcp client
-//git test 2
+/*
+    This sketch sends a message to a TCP server
+
+*/
+
 #include <ESP8266WiFi.h>
-int result = 10;
-//const char host [] = "127.1.1.1";
-IPAddress server(192,168,4,1);
+#include <ESP8266WiFiMulti.h>
+
+ESP8266WiFiMulti WiFiMulti;
+
+// Use WiFiClient class to create TCP connections
 WiFiClient client;
-void setup()
-{
-  Serial.println("Start");
+
+const uint16_t port = 8888;
+const char * host = "192.168.4.1"; // ip or dns
+
+void setup() {
   Serial.begin(9600);
+  delay(10);
+
+  // We start by connecting to a WiFi network
+  WiFi.mode(WIFI_STA);
+  WiFiMulti.addAP("console", "25252525");
+
   Serial.println();
+  Serial.println();
+  Serial.print("Wait for WiFi... ");
 
-  WiFi.begin("console", "25252525");
-
-  Serial.print("Connecting");
-  while (WiFi.status() != WL_CONNECTED)
-  {
-    delay(500);
+  while (WiFiMulti.run() != WL_CONNECTED) {
     Serial.print(".");
+    delay(500);
   }
-  Serial.println();
 
-  Serial.print("Connected, IP address: ");
+  Serial.println("");
+  Serial.println("WiFi connected");
+  Serial.println("IP address: ");
   Serial.println(WiFi.localIP());
+
+  delay(500);
+
+  Serial.print("connecting to ");
+  Serial.println(host);
+  
+  if (!client.connect(host, port)) {
+    Serial.println("connection failed");
+    Serial.println("wait 5 sec...");
+    delay(5000);
+    return;
+  }
+  if (client.connected()) {
+    Serial.println("host connected");
+  }
+
 }
 
- 
 
 void loop() {
 
- 
-  // Use WiFiClient class to create TCP connections
-  
-  const int Port = 8888;
-  delay (5000);
-  Serial.print ("Connected ");
-  Serial.println (server);
-//  result = client.connect(server, Port);
-//  Serial.println(result);
-  if (!client.connect(server, Port))
-  {
+  //read back one line from server
+  Serial.println("read data from host");
+
+//  if (client.available()) {
+//    char c = client.read();
+//    Serial.print(c);
+//  }
+
+
+  if(client.available()){
+    String line = client.readStringUntil('$');
+    Serial.println(line);
+  }
+  if (!client.connected()) {
+    Serial.println("host disconnected");
+    client.stop();
+    delay (5000);
+    
+    if (!client.connect(host, port)) {
     Serial.println("connection failed");
-  }
-     
-    if (client.connect(server, Port))
-  {
-    Serial.println("connection true");
+    Serial.println("wait 5 sec...");
+    delay(5000);
+    return;
   }
   }
+  
+  delay(2000);
+
+}
 
