@@ -5,6 +5,7 @@
 
 #include <ESP8266WiFi.h>
 #include <ESP8266WiFiMulti.h>
+#include <string.h>
 
 ESP8266WiFiMulti WiFiMulti;
 
@@ -13,6 +14,17 @@ WiFiClient client;
 
 const uint16_t port = 8888;
 const char * host = "192.168.4.1"; // ip or dns
+int period1 = -1;
+int period2 = -1;
+char period3 = -1;
+String line;
+char buffer[20];
+int Period;
+int LeftTimeout;
+int RightTimeout;
+int Minute;
+String PeriodStr;
+
 
 void setup() {
   Serial.begin(9600);
@@ -40,7 +52,7 @@ void setup() {
 
   Serial.print("connecting to ");
   Serial.println(host);
-  
+
   if (!client.connect(host, port)) {
     Serial.println("connection failed");
     Serial.println("wait 5 sec...");
@@ -59,30 +71,49 @@ void loop() {
   //read back one line from server
   Serial.println("read data from host");
 
-//  if (client.available()) {
-//    char c = client.read();
-//    Serial.print(c);
-//  }
+  //  if (client.available()) {
+  //    char c = client.read();
+  //    Serial.print(c);
+  //  }
 
-
-  if(client.available()){
-    String line = client.readStringUntil('$');
-    Serial.println(line);
+  while (!client.available()) {
+    delay(1);
   }
+  if (client.available())
+  {
+    line = client.readStringUntil('$');
+    Serial.println(line);
+
+  }
+
+  line.toCharArray(buffer, 20);
+  PeriodStr = (strtok(buffer, " "));
+  Period = PeriodStr.toInt();
+  LeftTimeout = atoi(strtok(NULL, " "));
+  RightTimeout = atoi(strtok(NULL, " "));
+  Minute = atoi(strtok(NULL, " "));
+  Serial.print("Period = ");
+  Serial.println(Period);
+  Serial.print("LeftTimeout = ");
+  Serial.println(LeftTimeout);
+  Serial.print("Righttimeout = ");
+  Serial.println(RightTimeout);
+  Serial.print("Minute = ");
+  Serial.println(Minute);
+  
+
   if (!client.connected()) {
     Serial.println("host disconnected");
     client.stop();
     delay (5000);
-    
+
     if (!client.connect(host, port)) {
-    Serial.println("connection failed");
-    Serial.println("wait 5 sec...");
-    delay(5000);
-    return;
+      Serial.println("connection failed");
+      Serial.println("wait 5 sec...");
+      delay(5000);
+      return;
+    }
   }
-  }
-  
-  delay(2000);
 
 }
 
