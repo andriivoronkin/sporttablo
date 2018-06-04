@@ -389,7 +389,7 @@ void Menu_4 ()
 void Menu_5 ()
 {
 
- if (key_buff[4] == 0 && FlagPart3LeftPlus == 0)
+  if (key_buff[4] == 0 && FlagPart3LeftPlus == 0)
   {
     lcd.clear();
     LeftPart3++;
@@ -484,7 +484,7 @@ void Menu_5 ()
 
 void Menu_6 ()
 {
-if (key_buff[4] == 0 && FlagPart4LeftPlus == 0)
+  if (key_buff[4] == 0 && FlagPart4LeftPlus == 0)
   {
     lcd.clear();
     LeftPart4++;
@@ -581,7 +581,7 @@ if (key_buff[4] == 0 && FlagPart4LeftPlus == 0)
 void Menu_7 ()
 {
 
-   if (key_buff[4] == 0 && FlagMinutePlus == 0)
+  if (key_buff[4] == 0 && FlagMinutePlus == 0)
   {
     delay(10);
     lcd.clear();
@@ -609,31 +609,31 @@ void Menu_7 ()
   {
     FlagMinuteMinus = 0;
   }
-  
-  
-  
+
+
+
   lcd.setCursor(1, 0);
   lcd.print ("TA\246MEP-");
-  
+
   if (Minute < 10)
   {
-  lcd.setCursor(9, 0);
-  lcd.print (Minute);
-  }else  {
-  lcd.setCursor(8, 0);
-  lcd.print (Minute);
+    lcd.setCursor(9, 0);
+    lcd.print (Minute);
+  } else  {
+    lcd.setCursor(8, 0);
+    lcd.print (Minute);
   }
-  
-  
+
+
   lcd.setCursor(10, 0);
   lcd.print (":");
-  
+
   lcd.setCursor(11, 0);
   lcd.print (Sec);
   lcd.setCursor(12, 0);
   lcd.print ("0");
-  
-  
+
+
   lcd.setCursor(1, 1);
   lcd.print ("Y");
   lcd.setCursor(2, 1);

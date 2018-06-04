@@ -125,7 +125,7 @@ void Menu ()
 
       lcd.setCursor(0, 0);
       lcd.print (data);
-      
+
       lcd.setCursor(9, 1);
       lcd.print (sizee);
       break;

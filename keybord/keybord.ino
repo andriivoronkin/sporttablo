@@ -8,7 +8,7 @@
 const int Rs = 23, En = 22, Rw = 6, d0 = A0, d1 = A1, d2 = A2, d3 = A3, d4 = A4, d5 = A5, d6 = A6, d7 = A7; /* выходы LCDRS = 23 /E = 22 / rw = 6*/
 int led = 4; // пин питания подстветки дисплея
 LiquidCrystal lcd(Rs, Rw, En, d0, d1, d2, d3, d4, d5, d6, d7);
-//keyboard 
+//keyboard
 int clockPin = 9; //PB1 = D9
 int dataPin = 5; //data PD5 =D5
 const int slaveSelectPin = 10; /*PB2 = D10 int latchPin = 10;// пин, управляющий защёлкой (SS в терминах SPI) */
@@ -33,7 +33,7 @@ char buffer[8];
 char probel = ' ';
 
 long previousMillis = 0;
-const long interval = 2000;
+const long interval = 10000;
 long currentMillis = 0;
 
 
@@ -98,10 +98,10 @@ void setup()
   lcd.begin(16, 2); // стартуем LCD
   pinMode(led, OUTPUT);
   digitalWrite(led, LOW);
-  pinMode (slaveSelectPin, OUTPUT);  
+  pinMode (slaveSelectPin, OUTPUT);
   SPI.begin();
   digitalWrite(slaveSelectPin, HIGH);//    digitalWrite(slaveSelectPin, LOW); // выбор ведомого - нашего регистра, необходимо перевести в 1
-//      SPI.transfer(0); // очищаем содержимое регистра
+  //      SPI.transfer(0); // очищаем содержимое регистра
   //  MainMenu ();
   Serial.println("ATE1");
   delay (500); //настройка TCP сервера
@@ -114,26 +114,26 @@ void setup()
 }
 
 void loop() {
-//  sizee = sizeof (tabl);
-   
-  
-  
-static uint8_t val = 1; // эта переменная нужнатолько для передачи по SPI
+  //  sizee = sizeof (tabl);
+
+
+
+  static uint8_t val = 1; // эта переменная нужнатолько для передачи по SPI
   uint8_t keyb1 = 0; // здесь хранится байт от левой клавиатуры
   uint8_t keyb2 = 0; // здесь хранится байт от правой клавиатуры
-  
+
   digitalWrite(slaveSelectPin, LOW);
   digitalWrite(slaveSelectPin, HIGH);
   keyb1 = SPI.transfer(val);
   delay(10);
   keyb2 = SPI.transfer(val);
 
-  
+
   // смотреть состояние кнопок
-//  lcd.setCursor(2, 0);
-//  lcd.print(keyb1, BIN);
-//  lcd.setCursor(2, 1);
-//  lcd.print(keyb2, BIN);
+  //  lcd.setCursor(2, 0);
+  //  lcd.print(keyb1, BIN);
+  //  lcd.setCursor(2, 1);
+  //  lcd.print(keyb2, BIN);
   //  delay (2000);
   // lcd.clear ();
 
@@ -144,7 +144,7 @@ static uint8_t val = 1; // эта переменная нужнатолько д
   {
     KeyMenuBuf[k] = bitRead(keyb1, k);
   }
-  
+
   //вычитываем состояние левых кнопок
   for (int n = 0; n < 8; n++)
   {
@@ -152,35 +152,35 @@ static uint8_t val = 1; // эта переменная нужнатолько д
   }
 
 
-// эта функция задает меню
-//  key1();
-//  key2();
+  // эта функция задает меню
+  //  key1();
+  //  key2();
   Menu ();
-  
-currentMillis = millis();
 
-  if (currentMillis - previousMillis >= interval) 
+  currentMillis = millis();
+
+  if (currentMillis - previousMillis >= interval)
   {
     previousMillis = currentMillis;
-  data = "";  
-  data = data + Period;
-  data = data + " ";
-  data = data + LeftTimeout;
-  data = data + " ";
-  data = data + RightTimeout;
-  data = data + " ";
-  data = data + Minute;
-  data = data + "$";
-  data = data + "\r\n";
-  sizee = sizeof (data);
+    data = "";
+    data = data + Period;
+    data = data + " ";
+    data = data + LeftTimeout;
+    data = data + " ";
+    data = data + RightTimeout;
+    data = data + " ";
+    data = data + Minute;
+    data = data + " ";
+    data = data + "$";
+    sizee = data.length();
+    
 
- 
-  delay(10);
-  command = cip + sizee;
-  
-  Serial.println(command);
-  delay (100);
-  Serial.print(data);
+    delay(10);
+    command = cip + sizee;
+
+    Serial.println(command);
+    delay (100);
+    Serial.println(data);
 
   }
 }
