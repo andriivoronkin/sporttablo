@@ -5,21 +5,21 @@
 #include <SPI.h> //библиотека spi//
 #include <LiquidCrystal.h> //библиотека для LCD//
 
-const int Rs = 23, En = 22, Rw = 6, d0 = A0, d1 = A1, d2 = A2, d3 = A3, d4 = A4, d5 = A5, d6 = A6, d7 = A7; /* выходы LCDRS = 23 /E = 22 / rw = 6*/
-int led = 4; // пин питания подстветки дисплея
+const uint8_t Rs = 23, En = 22, Rw = 6, d0 = A0, d1 = A1, d2 = A2, d3 = A3, d4 = A4, d5 = A5, d6 = A6, d7 = A7; /* выходы LCDRS = 23 /E = 22 / rw = 6*/
+uint8_t led = 4; // пин питания подстветки дисплея
 LiquidCrystal lcd(Rs, Rw, En, d0, d1, d2, d3, d4, d5, d6, d7);
 //keyboard
-int clockPin = 9; //PB1 = D9
-int dataPin = 5; //data PD5 =D5
-const int slaveSelectPin = 10; /*PB2 = D10 int latchPin = 10;// пин, управляющий защёлкой (SS в терминах SPI) */
+uint8_t clockPin = 9; //PB1 = D9
+uint8_t dataPin = 5; //data PD5 =D5
+const uint8_t slaveSelectPin = 10; /*PB2 = D10 int latchPin = 10;// пин, управляющий защёлкой (SS в терминах SPI) */
 
 //хранятся значения кнопок
-int key_buff [8];
-int KeyMenuBuf [8];
+uint8_t key_buff [8];
+uint8_t KeyMenuBuf [8];
 
 //Кнопки меню
-int MenuCounter = 0;
-int FlagMenu = 0;
+uint8_t MenuCounter = 0;
+uint8_t FlagMenu = 0;
 //int score1 = 0;
 //int oldscore = -1;
 
@@ -27,69 +27,70 @@ int FlagMenu = 0;
 // установки для передачи по TCP
 String cip = "AT+CIPSEND=0,"; // стандартная команда из АТ прошивки для передачи сообщения
 String command; // эта переменная содержит в себе переменную СIP плюс размер структуры size
-int sizee; // эта переменная мсодержит в себе размер структуры
-String data;
-char buffer[8];
-char probel = ' ';
+uint8_t sizee; // эта переменная мсодержит в себе размер структуры
+char buffer [49];
+char End = '$';
+uint8_t a = 0;
+
 
 long previousMillis = 0;
-const long interval = 10000;
+const long interval = 3000;
 long currentMillis = 0;
 
 
 // переменные для счета
-int Period = 0;
-int FlagPeriodPlus = 0;
-int FlagPeriodMinus = 0;
+uint8_t Period = 0;
+uint8_t FlagPeriodPlus = 0;
+uint8_t FlagPeriodMinus = 0;
 // переменные для таймаута
-int LeftTimeout = 0;
-int RightTimeout = 0;
-int FlagTimeoutLeftPlus = 0;
-int FlagTimeoutLeftMinus = 0;
-int FlagTimeoutRightPlus = 0;
-int FlagTimeoutRightMinus = 0;
+uint8_t LeftTimeout = 0;
+uint8_t RightTimeout = 0;
+uint8_t FlagTimeoutLeftPlus = 0;
+uint8_t FlagTimeoutLeftMinus = 0;
+uint8_t FlagTimeoutRightPlus = 0;
+uint8_t FlagTimeoutRightMinus = 0;
 //переменные для партий
-int LeftPart1 = 0;
-int RightPart1 = 0;
-int FlagPart1LeftPlus = 0;
-int FlagPart1LeftMinus = 0;
-int FlagPart1RightPlus = 0;
-int FlagPart1RightMinus = 0;
+uint8_t LeftPart1 = 0;
+uint8_t RightPart1 = 0;
+uint8_t FlagPart1LeftPlus = 0;
+uint8_t FlagPart1LeftMinus = 0;
+uint8_t FlagPart1RightPlus = 0;
+uint8_t FlagPart1RightMinus = 0;
 //*****//
-int LeftPart2 = 0;
-int RightPart2 = 0;
-int FlagPart2LeftPlus = 0;
-int FlagPart2LeftMinus = 0;
-int FlagPart2RightPlus = 0;
-int FlagPart2RightMinus = 0;
+uint8_t LeftPart2 = 0;
+uint8_t RightPart2 = 0;
+uint8_t FlagPart2LeftPlus = 0;
+uint8_t FlagPart2LeftMinus = 0;
+uint8_t FlagPart2RightPlus = 0;
+uint8_t FlagPart2RightMinus = 0;
 //*****//
-int LeftPart3 = 0;
-int RightPart3 = 0;
-int FlagPart3LeftPlus = 0;
-int FlagPart3LeftMinus = 0;
-int FlagPart3RightPlus = 0;
-int FlagPart3RightMinus = 0;
+uint8_t LeftPart3 = 0;
+uint8_t RightPart3 = 0;
+uint8_t FlagPart3LeftPlus = 0;
+uint8_t FlagPart3LeftMinus = 0;
+uint8_t FlagPart3RightPlus = 0;
+uint8_t FlagPart3RightMinus = 0;
 //*****//
-int LeftPart4 = 0;
-int RightPart4 = 0;
-int FlagPart4LeftPlus = 0;
-int FlagPart4LeftMinus = 0;
-int FlagPart4RightPlus = 0;
-int FlagPart4RightMinus = 0;
+uint8_t LeftPart4 = 0;
+uint8_t RightPart4 = 0;
+uint8_t FlagPart4LeftPlus = 0;
+uint8_t FlagPart4LeftMinus = 0;
+uint8_t FlagPart4RightPlus = 0;
+uint8_t FlagPart4RightMinus = 0;
 //таймер
-int Minute = 0;
-int FlagMinutePlus = 0;
-int FlagMinuteMinus = 0;
-int Sec = 0;
+uint8_t Minute = 0;
+uint8_t FlagMinutePlus = 0;
+uint8_t FlagMinuteMinus = 0;
+uint8_t Sec = 0;
 
 
-int Menu_1_counter = 0;
-int Menu_2_counter = 0;
-int Menu_3_counter = 0;
-int Menu_4_counter = 0;
-int Menu_5_counter = 0;
-int Menu_6_counter = 0;
-int Menu_7_counter = 0;
+uint8_t Menu_1_counter = 0;
+uint8_t Menu_2_counter = 0;
+uint8_t Menu_3_counter = 0;
+uint8_t Menu_4_counter = 0;
+uint8_t Menu_5_counter = 0;
+uint8_t Menu_6_counter = 0;
+uint8_t Menu_7_counter = 0;
 
 void setup()
 {
@@ -156,31 +157,32 @@ void loop() {
   //  key1();
   //  key2();
   Menu ();
+  
+
 
   currentMillis = millis();
 
   if (currentMillis - previousMillis >= interval)
   {
     previousMillis = currentMillis;
-    data = "";
-    data = data + Period;
-    data = data + " ";
-    data = data + LeftTimeout;
-    data = data + " ";
-    data = data + RightTimeout;
-    data = data + " ";
-    data = data + Minute;
-    data = data + " ";
-    data = data + "$";
-    sizee = data.length();
-    
+
+sprintf (buffer, "%3d %3d %3d %3d %3d %3d %3d %3d %3d %3d %3d %3d %c", Period, LeftTimeout, RightTimeout, LeftPart1, RightPart1, LeftPart2, RightPart2, LeftPart3, RightPart3, LeftPart4, RightPart4, Minute, '$');
+a = 0;
+int i = 0;
+while (buffer[i] != '\0')
+{
+  i++;
+  a++;
+}
 
     delay(10);
+    sizee = 49;
     command = cip + sizee;
 
+    
     Serial.println(command);
     delay (100);
-    Serial.println(data);
+    Serial.println(buffer);
 
   }
 }

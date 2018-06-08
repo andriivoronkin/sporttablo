@@ -124,10 +124,10 @@ void Menu ()
     case 8:
 
       lcd.setCursor(0, 0);
-      lcd.print (data);
-
+//      lcd.print (data);
+//      lcd.print (buffer[0]);
       lcd.setCursor(9, 1);
-      lcd.print (sizee);
+      lcd.print (a);
       break;
 
     default:
