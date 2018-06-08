@@ -18,12 +18,27 @@ int period1 = -1;
 int period2 = -1;
 char period3 = -1;
 String line;
-char buffer[20];
+char bufer[70];
 int Period;
 int LeftTimeout;
 int RightTimeout;
 int Minute;
 String PeriodStr;
+
+int LeftPart1;
+int RightPart1;
+
+//*****//
+int LeftPart2;
+int RightPart2;
+
+//*****//
+int LeftPart3;
+int RightPart3;
+
+//*****//
+int LeftPart4;
+int RightPart4;
 
 
 void setup() {
@@ -83,24 +98,46 @@ void loop() {
   {
     line = client.readStringUntil('$');
     Serial.println(line);
-
   }
 
-  line.toCharArray(buffer, 20);
-  PeriodStr = (strtok(buffer, " "));
-  Period = PeriodStr.toInt();
-  LeftTimeout = atoi(strtok(NULL, " "));
-  RightTimeout = atoi(strtok(NULL, " "));
-  Minute = atoi(strtok(NULL, " "));
+  line.toCharArray(bufer, 51);
+  Period = atoi(strtok(bufer, " "));
   Serial.print("Period = ");
   Serial.println(Period);
-  Serial.print("LeftTimeout = ");
+  
+  LeftTimeout = atoi(strtok(NULL, " "));
+  RightTimeout = atoi(strtok(NULL, " "));
+  Serial.print(RightTimeout);
+  Serial.print("-Timeout-");
   Serial.println(LeftTimeout);
-  Serial.print("Righttimeout = ");
-  Serial.println(RightTimeout);
+  
+  LeftPart1 = atoi(strtok(NULL, " "));
+  RightPart1 = atoi(strtok(NULL, " "));
+  Serial.print(LeftPart1);
+  Serial.print("-Part1-");
+  Serial.println(RightPart1);
+  
+  LeftPart2 = atoi(strtok(NULL, " "));
+  RightPart2 = atoi(strtok(NULL, " "));
+  Serial.print(LeftPart2);
+  Serial.print("-Part2-");
+  Serial.println(RightPart2);
+  
+  LeftPart3 = atoi(strtok(NULL, " "));
+  RightPart3 = atoi(strtok(NULL, " "));
+  Serial.print(LeftPart3);
+  Serial.print("-Part3-");
+  Serial.println(RightPart3);  
+  
+  LeftPart4 = atoi(strtok(NULL, " "));
+  RightPart4 = atoi(strtok(NULL, " "));
+  Serial.print(LeftPart4);
+  Serial.print("-Part4-");
+  Serial.println(RightPart4);
+  
+  Minute = atoi(strtok(NULL, " "));
   Serial.print("Minute = ");
   Serial.println(Minute);
-  
 
   if (!client.connected()) {
     Serial.println("host disconnected");
